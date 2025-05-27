@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :update]
+  before_action :set_book, only: [:show, :update, :destroy]
 
   def index
     # List all books with model filters
@@ -26,6 +26,13 @@ class BooksController < ApplicationController
     # return the book
     @book = BooksService.new.update_book(@book.id, book_params)
     render json: @book, status: :ok
+  end
+
+  def destroy
+    # Destroy a book
+    # return the book
+    BooksService.new.destroy_book(@book.id)
+    render head: :no_content, status: :ok
   end
 
   private

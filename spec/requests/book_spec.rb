@@ -29,4 +29,11 @@ RSpec.describe "Books", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "DELETE /destroy" do
+    it "returns http success" do
+      delete "/books/#{book.id}"
+      expect(response).to have_http_status(:success)
+    end
+  end
 end

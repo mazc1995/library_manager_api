@@ -35,4 +35,10 @@ class BookRepository
     # update the book
     Book.find(id).update!(book_params)
   end
+
+  def destroy_book(id)
+    # receive id
+    # destroy the book
+    Book.find(id).destroy!
+  end
 end

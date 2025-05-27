@@ -52,4 +52,8 @@ RSpec.describe BookRepository, type: :model do
   it 'updates a book' do
     expect { subject.update_book(book1.id, title: 'The Great Gatsby') }.to change { book1.reload.title }.to('The Great Gatsby')
   end
+
+  it 'destroys a book' do
+    expect { subject.destroy_book(book1.id) }.to change(Book, :count).by(-1)
+  end
 end 

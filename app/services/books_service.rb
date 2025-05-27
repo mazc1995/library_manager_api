@@ -24,4 +24,10 @@ class BooksService
     # update the book
     BookRepository.new.update_book(id, book_params)
   end
+
+  def destroy_book(id)
+    # receive id
+    # destroy the book
+    BookRepository.new.destroy_book(id)
+  end
 end

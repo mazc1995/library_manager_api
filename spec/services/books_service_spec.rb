@@ -32,4 +32,11 @@ RSpec.describe BooksService, type: :service do
       expect { service.update_book(book.id, title: 'The Great Gatsby') }.to change { book.reload.title }.to('The Great Gatsby')
     end
   end
+
+  describe '#destroy_book' do
+    it 'delegates to BookRepository and returns the book' do
+      service = described_class.new
+      expect { service.destroy_book(book.id) }.to change(Book, :count).by(-1)
+    end
+  end
 end 
