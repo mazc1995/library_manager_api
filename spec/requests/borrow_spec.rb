@@ -28,6 +28,17 @@ RSpec.describe "Borrows", type: :request do
     end
   end
 
+  describe "PUT /update" do
+    it "returns http success and increases book copies" do
+      put "/borrows/#{borrow.id}", params: { returned: true, returned_date: DateTime.now }
+      expect(response).to have_http_status(:success)
+      expect(Book.find(book.id).copies).to eq(2)
+      expect(Book.find(book.id).available).to eq(true)
+      expect(Borrow.find(borrow.id).returned).to eq(true)
+      expect(Borrow.find(borrow.id).returned_date.to_i).to be_within(1).of(DateTime.now.to_i)
+    end
+  end
+
   describe "DELETE /destroy" do
     it "returns http success and increases book copies" do
       # Primero prestamos el libro para que copies sea 0
@@ -35,8 +46,6 @@ RSpec.describe "Borrows", type: :request do
       borrow = Borrow.last
       delete "/borrows/#{borrow.id}"
       expect(response).to have_http_status(:success)
-      expect(Book.find(book.id).copies).to eq(1)
-      expect(Book.find(book.id).available).to eq(true)
     end
   end
 end

@@ -4,5 +4,7 @@ FactoryBot.define do
     due_date { Time.now + 2.weeks }
     user { create(:user) }
     book { create(:book) }
+    returned { false }
+    returned_date { nil }
   end
 end

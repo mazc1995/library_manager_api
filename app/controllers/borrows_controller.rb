@@ -18,7 +18,7 @@ class BorrowsController < ApplicationController
   end
 
   def update
-    @borrow = BorrowsService.new.update_borrow(params[:id], borrow_params)
+    @borrow = BorrowsService.new.update_borrow(params[:id])
     render json: @borrow, status: :ok
   end
 
@@ -30,7 +30,7 @@ class BorrowsController < ApplicationController
   private
 
   def borrow_params
-    params.permit(:user_id, :book_id, :borrow_date, :due_date)
+    params.permit(:user_id, :book_id, :borrow_date, :due_date, :returned, :returned_date)
   end
 
   def set_borrow

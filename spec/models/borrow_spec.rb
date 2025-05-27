@@ -26,4 +26,16 @@ RSpec.describe Borrow, type: :model do
     borrow.due_date = borrow.borrow_date + 1.day
     expect(borrow).to be_valid
   end
+
+  it 'is invalid with a returned date before the borrow date' do
+    borrow.returned_date = borrow.borrow_date - 1.day
+    borrow.returned = true
+    expect(borrow).to be_invalid
+  end
+
+  it 'is valid with a returned date after the borrow date' do
+    borrow.returned_date = borrow.borrow_date + 1.day
+    borrow.returned = true
+    expect(borrow).to be_valid
+  end
 end

@@ -19,8 +19,15 @@ RSpec.describe BorrowRepository, type: :repository do
     it 'creates a borrow' do
       user = create(:user)
       book = create(:book)
-      params = { user_id: user.id, book_id: book.id, borrow_date: Date.today, due_date: Date.today + 1.week }
+      params = { user_id: user.id, book_id: book.id, borrow_date: Date.today, due_date: Date.today + 1.week, returned: false, returned_date: nil }
       expect { BorrowRepository.new.create_borrow(params) }.to change(Borrow, :count).by(1)
+    end
+  end
+
+  describe '#update_borrow' do
+    it 'updates a borrow' do
+      params = { returned: true, returned_date: DateTime.now }
+      expect { BorrowRepository.new.update_borrow(borrow.id, params) }.to change { Borrow.find(borrow.id).returned }.to(true)
     end
   end
 

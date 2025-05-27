@@ -26,18 +26,22 @@ class BorrowsService
     end
   end
 
+  def update_borrow(id)
+    # receive id and borrow_params
+    # A user is returning a book
+    borrow = BorrowRepository.new.show_borrow({id: id})
+    book = BookRepository.new.show_book(borrow.book_id)
+    run_return_validations!(id)
+    ActiveRecord::Base.transaction do
+      BookRepository.new.update_book(book.id, { copies: book.copies + 1 })
+      BorrowRepository.new.update_borrow(id, { returned: true, returned_date: DateTime.now })
+    end
+  end
+
   def destroy_borrow(id)
     # receive id
-    # A user is returning a book
-    # Update the book availability to true
     # Destroy the borrow
-
-    ActiveRecord::Base.transaction do
-      borrow = BorrowRepository.new.show_borrow({id: id})
-      book = BookRepository.new.show_book(borrow.book_id)
-      BookRepository.new.update_book(book.id, { copies: book.copies + 1 })
-      BorrowRepository.new.destroy_borrow(id)
-    end
+    BorrowRepository.new.destroy_borrow(id)
   end
 
   private
@@ -45,5 +49,9 @@ class BorrowsService
   def run_borrow_validations!(book_id, user_id)
     validate_book_availability!(book_id)
     validate_user_borrowed_book!(user_id, book_id)
+  end
+
+  def run_return_validations!(borrow_id)
+    validate_borrow_returned!(borrow_id)
   end
 end
