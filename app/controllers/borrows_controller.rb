@@ -24,7 +24,7 @@ class BorrowsController < ApplicationController
 
   def destroy
     BorrowsService.new.destroy_borrow(@borrow.id)
-    render head: :no_content, status: :ok
+    head :no_content
   end
 
   private
@@ -34,7 +34,6 @@ class BorrowsController < ApplicationController
   end
 
   def set_borrow
-
     @borrow = BorrowRepository.new.show_borrow({id: params[:id]})
   end
 end

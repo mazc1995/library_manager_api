@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BookRepository, type: :model do
   let!(:book1) { Book.create!(title: 'The Lord of the Rings', author: 'J.R.R. Tolkien', genre: 'Fantasy', isbn: '123', copies: 5, available: true) }
-  let!(:book2) { Book.create!(title: 'The Hobbit', author: 'j.r.r. tolkien', genre: 'fantasy', isbn: '456', copies: 3, available: false) }
+  let!(:book2) { Book.create!(title: 'The Hobbit', author: 'j.r.r. tolkien', genre: 'fantasy', isbn: '456', copies: 0, available: false) }
   let!(:book3) { Book.create!(title: '1984', author: 'George Orwell', genre: 'Dystopian', isbn: '789', copies: 2, available: true) }
 
   subject { described_class.new }

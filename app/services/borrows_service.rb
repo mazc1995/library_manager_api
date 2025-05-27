@@ -20,8 +20,10 @@ class BorrowsService
     user = UserRepository.new.show_user(borrow_params[:user_id])
 
     run_borrow_validations!(book.id, user.id)
-    BorrowRepository.new.create_borrow(borrow_params)
-    BookRepository.new.update_book(book.id, { available: false })
+    ActiveRecord::Base.transaction do
+      BorrowRepository.new.create_borrow(borrow_params)
+      BookRepository.new.update_book(book.id, { copies: book.copies - 1 })
+    end
   end
 
   def destroy_borrow(id)
@@ -32,7 +34,8 @@ class BorrowsService
 
     ActiveRecord::Base.transaction do
       borrow = BorrowRepository.new.show_borrow({id: id})
-      BookRepository.new.update_book(borrow.book_id, { available: true })
+      book = BookRepository.new.show_book(borrow.book_id)
+      BookRepository.new.update_book(book.id, { copies: book.copies + 1 })
       BorrowRepository.new.destroy_borrow(id)
     end
   end
