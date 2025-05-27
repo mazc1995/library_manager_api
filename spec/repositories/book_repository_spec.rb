@@ -40,4 +40,8 @@ RSpec.describe BookRepository, type: :model do
     expect(subject.list_books(author: 'tolkien', genre: 'fantasy')).to include(book1, book2)
     expect(subject.list_books(author: 'tolkien', genre: 'dystopian')).to be_empty
   end
+
+  it 'finds a book by id' do
+    expect(subject.show_book(book1.id)).to eq(book1)
+  end
 end 

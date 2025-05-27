@@ -17,4 +17,10 @@ class BookRepository
 
     books
   end
+
+  def show_book(id)
+    # receive id
+    # return the book
+    Book.find(id)
+  end
 end

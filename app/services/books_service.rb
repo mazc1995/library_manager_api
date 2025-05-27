@@ -6,4 +6,10 @@ class BooksService
     # return class Active Record Relation
     BookRepository.new.list_books(filters)
   end
+
+  def show_book(id)
+    # receive id
+    # return the book
+    BookRepository.new.show_book(id)
+  end
 end
