@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   def index
     # List all books with model filters
     # return all books that match the filters
-    @books = BooksService.new.list_books(index_params)
+    @books = BooksService.new.list_books(book_params)
     render json: @books, status: :ok
   end
 
@@ -14,9 +14,16 @@ class BooksController < ApplicationController
     render json: @book, status: :ok
   end
 
+  def create
+    # Create a new book
+    # return the book
+    @book = BooksService.new.create_book(book_params)
+    render json: @book, status: :created
+  end
+
   private
 
-  def index_params
+  def book_params
     params.permit(:title, :author, :genre, :isbn, :copies, :available).to_h.compact_blank
   end
 

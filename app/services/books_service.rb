@@ -12,4 +12,10 @@ class BooksService
     # return the book
     BookRepository.new.show_book(id)
   end
+
+  def create_book(book_params)
+    # receive book_params
+    # return the book
+    BookRepository.new.create_book(book_params)
+  end
 end

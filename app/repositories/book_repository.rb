@@ -23,4 +23,10 @@ class BookRepository
     # return the book
     Book.find(id)
   end
+
+  def create_book(book_params)
+    # receive book_params
+    # create a new book
+    Book.create!(book_params)
+  end
 end

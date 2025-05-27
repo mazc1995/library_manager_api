@@ -44,4 +44,8 @@ RSpec.describe BookRepository, type: :model do
   it 'finds a book by id' do
     expect(subject.show_book(book1.id)).to eq(book1)
   end
+
+  it 'creates a new book' do
+    expect { subject.create_book(title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', genre: 'Fiction', isbn: '1234567890', copies: 1, available: true) }.to change(Book, :count).by(1)
+  end
 end 
