@@ -5,9 +5,9 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :type, presence: true
+  validates :role, presence: true
   validates :password_digest, presence: true, length: { minimum: 8 }
   
 
-  enum :type, [:member, :librarian]
+  enum :role, [:member, :librarian]
 end

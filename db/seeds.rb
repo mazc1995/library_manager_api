@@ -78,3 +78,26 @@ books.each do |book_attrs|
   book.assign_attributes(book_attrs)
   book.save!
 end
+
+users = [
+  {
+    name: "John Doe",
+    email: "john.doe@example.com",
+    role: "librarian",
+    password: "password123",
+    password_confirmation: "password123"
+  },
+  {
+    name: "Jane Doe",
+    email: "jane.doe@example.com",
+    role: "member",
+    password: "password123",
+    password_confirmation: "password123"
+  }
+]
+
+users.each do |user_attrs|
+  user = User.find_or_initialize_by(email: user_attrs[:email])
+  user.assign_attributes(user_attrs)
+  user.save!
+end
