@@ -29,4 +29,10 @@ class BookRepository
     # create a new book
     Book.create!(book_params)
   end
+
+  def update_book(id, book_params)
+    # receive id and book_params
+    # update the book
+    Book.find(id).update!(book_params)
+  end
 end

@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show]
+  before_action :set_book, only: [:show, :update]
 
   def index
     # List all books with model filters
@@ -19,6 +19,13 @@ class BooksController < ApplicationController
     # return the book
     @book = BooksService.new.create_book(book_params)
     render json: @book, status: :created
+  end
+
+  def update
+    # Update a book
+    # return the book
+    @book = BooksService.new.update_book(@book.id, book_params)
+    render json: @book, status: :ok
   end
 
   private

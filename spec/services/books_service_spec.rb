@@ -25,4 +25,11 @@ RSpec.describe BooksService, type: :service do
       expect { service.create_book(title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', genre: 'Fiction', isbn: '1234567890', copies: 1, available: true) }.to change(Book, :count).by(1)
     end
   end
+
+  describe '#update_book' do
+    it 'delegates to BookRepository and returns the book' do
+      service = described_class.new
+      expect { service.update_book(book.id, title: 'The Great Gatsby') }.to change { book.reload.title }.to('The Great Gatsby')
+    end
+  end
 end 

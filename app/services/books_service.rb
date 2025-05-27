@@ -18,4 +18,10 @@ class BooksService
     # return the book
     BookRepository.new.create_book(book_params)
   end
+
+  def update_book(id, book_params)
+    # receive id and book_params
+    # update the book
+    BookRepository.new.update_book(id, book_params)
+  end
 end

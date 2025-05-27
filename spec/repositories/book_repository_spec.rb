@@ -48,4 +48,8 @@ RSpec.describe BookRepository, type: :model do
   it 'creates a new book' do
     expect { subject.create_book(title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', genre: 'Fiction', isbn: '1234567890', copies: 1, available: true) }.to change(Book, :count).by(1)
   end
+
+  it 'updates a book' do
+    expect { subject.update_book(book1.id, title: 'The Great Gatsby') }.to change { book1.reload.title }.to('The Great Gatsby')
+  end
 end 
