@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
+  before_action :authorize_librarian!, only: [:create, :update, :destroy]
 
   def index
     # List all books with model filters

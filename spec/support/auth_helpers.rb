@@ -8,6 +8,14 @@ module AuthHelpers
     user.update(auth_token: SecureRandom.hex(16))
     user
   end
+
+  def create_authenticated_member
+    create_authenticated_user(role: :member)
+  end
+
+  def create_authenticated_librarian
+    create_authenticated_user(role: :librarian)
+  end
 end
 
 RSpec.configure do |config|
