@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
+  before_create :generate_auth_token
 
   has_many :borrows, dependent: :destroy
 
@@ -10,4 +11,10 @@ class User < ApplicationRecord
   
 
   enum :role, [:member, :librarian]
+
+  private
+
+  def generate_auth_token
+    self.auth_token = SecureRandom.hex(16)
+  end
 end
