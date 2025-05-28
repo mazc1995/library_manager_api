@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :borrow do
-    borrow_date { Time.now }
-    due_date { Time.now + 2.weeks }
+    borrow_date { Date.current }
+    due_date { Date.current + 14.days }
     user { create(:user) }
     book { create(:book) }
     returned { false }
