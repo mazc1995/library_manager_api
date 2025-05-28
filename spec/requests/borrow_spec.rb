@@ -115,25 +115,17 @@ RSpec.describe "Borrows", type: :request do
   end
 
   describe "DELETE /destroy" do
-    context "when user is authenticated (any role)" do
-      it "returns http success for member" do
-        # First we create a borrow to delete
-        post "/borrows", 
-             params: { user_id: member.id, book_id: book.id, borrow_date: Date.today, due_date: Date.today + 1.week },
-             headers: auth_headers(member)
-        borrow = Borrow.last
-        delete "/borrows/#{borrow.id}", headers: auth_headers(member)
-        expect(response).to have_http_status(:success)
+    context "when user is authenticated (only librarians can delete borrows)" do
+      let(:test_borrow) { create(:borrow, user: member, book: book, borrow_date: Date.today - 7.days, due_date: Date.today + 7.days) }
+      
+      it "returns success when librarian deletes a borrow" do
+        delete "/borrows/#{test_borrow.id}", headers: auth_headers(librarian)
+        expect(response).to have_http_status(:no_content)
       end
-
-      it "returns http success for librarian" do
-        # First we create a borrow to delete
-        post "/borrows", 
-             params: { user_id: member.id, book_id: book.id, borrow_date: Date.today, due_date: Date.today + 1.week },
-             headers: auth_headers(member)
-        borrow = Borrow.last
-        delete "/borrows/#{borrow.id}", headers: auth_headers(librarian)
-        expect(response).to have_http_status(:success)
+      
+      it "returns unauthorized when member tries to delete a borrow" do
+        delete "/borrows/#{test_borrow.id}", headers: auth_headers(member)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 

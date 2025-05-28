@@ -1,6 +1,6 @@
 class BorrowsController < ApplicationController
   before_action :set_borrow, only: [:show, :update, :destroy]
-  before_action :authorize_librarian!, only: [:update]
+  before_action :authorize_librarian!, only: [:update, :destroy]
   before_action :authorize_member!, only: [:create]
 
   def index
