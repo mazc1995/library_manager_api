@@ -94,6 +94,8 @@ end
 | PUT /borrows/:id    | ✅         | ❌      | ❌               |
 | DELETE /borrows/:id | ✅         | ❌      | ❌               |
 | GET /dashboard      | ✅         | ✅      | ❌               |
+| GET /users          | ✅         | ❌      | ❌               |
+| GET /users/:id      | ✅         | ❌      | ❌               |
 
 ### Implementation in Controllers
 
@@ -106,11 +108,15 @@ before_action :authorize_librarian!, only: [:create, :update, :destroy]
 
 # BorrowsController
 before_action :authenticate_user!
-before_action :authorize_librarian!, only: [:update]
+before_action :authorize_librarian!, only: [:update, :destroy]
 before_action :authorize_member!, only: [:create]
 
 # DashboardController
 before_action :authenticate_user!
+
+# UsersController
+before_action :authenticate_user!
+before_action :authorize_librarian!
 ```
 
 ## Dashboard Authorization

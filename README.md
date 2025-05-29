@@ -191,6 +191,39 @@ Authorization: Bearer <token>
 }
 ```
 
+### Users
+
+- **List all users**: `GET /users`
+  - Librarians only
+  - Returns an array of all users with their basic information
+
+- **Get user details with borrows**: `GET /users/:id`
+  - Librarians only
+  - Returns detailed information about a user including all their borrows
+  ```json
+  {
+    "id": 1,
+    "name": "User Name",
+    "email": "user@example.com",
+    "role": "member",
+    "borrows": [
+      {
+        "id": 1,
+        "book_id": 1,
+        "book_title": "Book Title",
+        "book_author": "Author Name",
+        "book_genre": "Fiction",
+        "borrow_date": "2023-05-01",
+        "due_date": "2023-05-15",
+        "returned": false,
+        "returned_date": null,
+        "days_until_due": 5,
+        "is_overdue": false
+      }
+    ]
+  }
+  ```
+
 ## Project Structure
 
 - **Models**: `app/models/`
@@ -203,6 +236,7 @@ Authorization: Bearer <token>
   - `borrows_controller.rb`: Borrow management
   - `auth_controller.rb`: Authentication
   - `dashboard_controller.rb`: Dashboard data
+  - `users_controller.rb`: User management
 
 - **Repositories**: `app/repositories/`
   - Implements repository pattern for data access
@@ -211,4 +245,5 @@ Authorization: Bearer <token>
 - **Services**: `app/services/`
   - Implements business logic
   - `dashboard_service.rb`: Dashboard data processing
+  - `users_service.rb`: User operations
 

@@ -11,7 +11,7 @@ module BorrowValidations
   def validate_user_borrowed_book!(user_id, book_id)
     # validate if the user has already borrowed the book
     # if so, raise an error
-    raise "User already borrowed this book" if BorrowRepository.new.show_borrow({user_id: user_id, book_id: book_id}).present?
+    raise "User already borrowed this book" if BorrowRepository.new.show_borrow({user_id: user_id, book_id: book_id, returned: false}).present?
   end
 
   def validate_borrow_returned!(borrow_id)

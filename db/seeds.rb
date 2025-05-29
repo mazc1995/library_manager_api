@@ -36,7 +36,7 @@ books = [
     author: "J.R.R. Tolkien",
     genre: "Fantasy",
     isbn: Random.hex(10),
-    copies: 12,
+    copies: 0,
     available: true
   },
   {

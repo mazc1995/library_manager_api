@@ -4,7 +4,7 @@ class AuthController < ApplicationController
   def signup
     user = User.new(user_params)
     if user.save
-      render json: { token: user.auth_token }, status: :created
+      render json: { token: user.auth_token, role: user.role, user_id: user.id }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -14,7 +14,7 @@ class AuthController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       user.update(auth_token: SecureRandom.hex(16))
-      render json: { token: user.auth_token }, status: :ok
+      render json: { token: user.auth_token, role: user.role, user_id: user.id }, status: :ok
     else
       render json: { error: "Invalid email or password" }, status: :unauthorized
     end
