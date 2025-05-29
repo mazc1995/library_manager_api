@@ -30,7 +30,7 @@ A Ruby on Rails API for managing a library system with books, users, and borrows
 
 1. Clone the repository:
    ```
-   git clone <repository-url>
+   git clone https://github.com/mazc1995/library_manager_api.git
    cd library_api
    ```
 
@@ -45,6 +45,22 @@ A Ruby on Rails API for managing a library system with books, users, and borrows
    rails db:migrate
    rails db:seed # Optional - adds sample data
    ```
+
+   After seeding, you can use these test accounts:
+
+   Librarian:
+   ```
+   email: john.doe@example.com
+   password: password123
+   ```
+
+   Member:
+   ```
+   email: jane.doe@example.com 
+   password: password123
+   ```
+
+
 
 4. Run the server:
    ```
